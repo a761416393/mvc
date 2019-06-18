@@ -4,13 +4,7 @@ import com.example.springboot.mvc.dto.CommendParam;
 
 public abstract class Handler {
     private Handler nextHandler;
-
-    private CommendParam commendParam;
-
-    public Handler(CommendParam commendParam) {
-        this.commendParam = commendParam;
-    }
-
+    private CommendParam commend;
     public Handler setNext(Handler handler){
         this.nextHandler=handler;
         return handler;
@@ -18,18 +12,23 @@ public abstract class Handler {
 
     public  abstract boolean doNeed(CommendParam commendParam);
 
-    protected void done(CommendParam commendParam){
+    public  void done(CommendParam commendParam){
         System.out.println("----进入抽象类方法-----");
-
-    }
-
-    public void support(CommendParam commendParam){
-        //while(this.nextHandler!=null){
-            if(doNeed(commendParam)){
-                done(commendParam);
+        Handler handler = this.nextHandler;
+        while(handler!=null){
+            if(handler.doNeed(commendParam)){
+                handler.done(commendParam);
             }
-            nextHandler.support(commendParam);
-        //}
-
+            handler=handler.nextHandler;
+        }
     }
+
+    public void setCommend(CommendParam commend) {
+        this.commend = commend;
+    }
+
+//    public void support(CommendParam commendParam){
+//
+//
+//    }
 }

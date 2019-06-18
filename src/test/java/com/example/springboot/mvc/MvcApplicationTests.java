@@ -19,11 +19,11 @@ public class MvcApplicationTests {
 	public static void main(String []args){
 		CommendParam commendParam = new CommendParam();
 
-		Handler start = new Start(commendParam);
-		start.setNext(new AAA(commendParam))
-				.setNext(new BBB(commendParam)).
-				setNext(new CCC(commendParam));
-		start.support(commendParam);
+		Handler start = new Start();
+		start.setNext(new AAA())
+				.setNext(new BBB()).
+				setNext(new CCC());
+		start.done(commendParam);
 	}
 
 }
